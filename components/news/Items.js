@@ -1,8 +1,13 @@
 import React from "react";
+import { useRouter } from "next/router";
 
-const NewItems = ({ data }) => {
+function NewItems({ data }) {
+  const router = useRouter();
   return (
-    <div className="item mb-3">
+    <div
+      className="item mb-3"
+      onClick={() => router.push("/news/[slug]", `/news/${data.url}`)}
+    >
       <div className="item-img">
         <img
           src={
@@ -11,16 +16,18 @@ const NewItems = ({ data }) => {
               : data.base_image
           }
           alt={data.title}
+          onClick={() => router.push("/news/[slug]", `/news/${data.url}`)}
         />
       </div>
 
       <div className="item-content ml-3">
-        <p>{data.title}</p>
+        <p onClick={() => router.push("/news/[slug]", `/news/${data.url}`)}>
+          {data.title}
+        </p>
         <p>{data.shortDescription}</p>
       </div>
-      <hr />
     </div>
   );
-};
+}
 
 export default NewItems;

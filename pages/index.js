@@ -1,12 +1,12 @@
 import React from "react";
 import Head from "next/head";
-import { getHomepageService } from "../services/home";
 import { map } from "lodash";
+import { useRouter } from "next/router";
 import ReactHtmlParser from "react-html-parser";
-
-// const parser = new DomParser();
+import { getHomepageService } from "../services/home";
 
 function Home({ list }) {
+  const router = useRouter();
   return (
     <div>
       <Head>
@@ -14,8 +14,12 @@ function Home({ list }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="container mt-2">
-        {map(list.pageBlocks, values => {
-          return ReactHtmlParser(values.contentHtml);
+        {map(list.pageBlocks, (values, index) => {
+          return (
+            <div key={index} onClick={() => router.push("/news")}>
+              {ReactHtmlParser(values.contentHtml)}
+            </div>
+          );
         })}
       </div>
     </div>

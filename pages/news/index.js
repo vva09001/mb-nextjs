@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Head from "next/head";
 import { map } from "lodash";
-import NewItems from "../components/news/Items";
-import { getNewService } from "../services/news";
+import NewItems from "../../components/news/Items";
+import { getNewService } from "../../services/news";
 
 function News({ list }) {
-  useEffect(() => {
-    getNewService();
-  }, [getNewService]);
   return (
     <React.Fragment>
       <Head>

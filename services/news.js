@@ -13,4 +13,17 @@ const getNewService = () => {
     });
 };
 
-export { getNewService };
+const getNewByUri = uri => {
+  return request({
+    url: `/news/url/${uri}`,
+    method: "GET"
+  })
+    .then(res => {
+      return res;
+    })
+    .catch(error => {
+      return error.response.data;
+    });
+};
+
+export { getNewService, getNewByUri };
