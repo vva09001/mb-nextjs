@@ -1,0 +1,21 @@
+.section-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .icon {
+    svg {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+  .text-muted {
+    color: #869ab8 !important;
+  }
+  h3 {
+    font-size: 1.3125rem;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+    color: #161c2d;
+  }
+}

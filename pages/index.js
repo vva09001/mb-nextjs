@@ -13,7 +13,7 @@ function Home({ list }) {
         <title>{list.meta_title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div id="dom">
+      <div className="container mt-2">
         {map(list.pageBlocks, values => {
           return ReactHtmlParser(values.contentHtml);
         })}

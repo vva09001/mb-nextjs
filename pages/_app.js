@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 import withRedux from "next-redux-wrapper";
 import withReduxSaga from "next-redux-saga";
 import store from "../store";
+import "../styles/index.scss";
+import "bootstrap/dist/css/bootstrap.css";
 
 class NextApp extends App {
   static async getInitialProps({ Component, ctx }) {

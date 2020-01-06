@@ -1,8 +1,8 @@
 import request from "../utils/request";
 
-const getHomepageService = () => {
+const getNewService = () => {
   return request({
-    url: "/pages/name/homepage",
+    url: "/news/isActive",
     method: "GET"
   })
     .then(res => {
@@ -13,4 +13,4 @@ const getHomepageService = () => {
     });
 };
 
-export { getHomepageService };
+export { getNewService };
