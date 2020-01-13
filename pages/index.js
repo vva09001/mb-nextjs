@@ -15,11 +15,7 @@ function Home({ list }) {
       </Head>
       <div className="container mt-2">
         {map(list.pageBlocks, (values, index) => {
-          return (
-            <div key={index} onClick={() => router.push("/news")}>
-              {ReactHtmlParser(values.contentHtml)}
-            </div>
-          );
+          return <div key={index}>{ReactHtmlParser(values.contentHtml)}</div>;
         })}
       </div>
     </div>
@@ -27,7 +23,7 @@ function Home({ list }) {
 }
 
 Home.getInitialProps = async ctx => {
-  let list = null;
+  let list = [];
   let res = await getHomepageService();
   list = res.data;
   return { list };
