@@ -67,18 +67,36 @@
   }
 }
 
+.post_wapper {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e1e1e1;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 35px;
+  margin-bottom: 20px;
+  img {
+    max-width: 100%;
+  }
+}
+
 @media (min-width: 992px) {
   .mutileImage_container {
     .product {
-      width: 30%;
+      width: 33%;
     }
   }
   .post_container {
     .post_wapper {
-      width: 30%;
+      width: 33%;
     }
     .product {
-      width: 30%;
+      width: 33%;
     }
+  }
+  .post_wapper {
+    width: 33%;
   }
 }
