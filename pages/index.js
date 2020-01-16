@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { map } from "lodash";
 import { useRouter } from "next/router";
 import ReactHtmlParser from "react-html-parser";
 import { getHomepageService } from "../services/home";
 
-function Home({ list }) {
+function Home() {
   const router = useRouter();
+  const [list, setList] = useState([]);
+
+  const getHome = async () => {
+    const res = await getHomepageService();
+    if (res && res.status === 200) {
+      setList(res.data);
+    }
+  };
+  useEffect(() => {
+    getHome();
+  }, []);
   return (
     <div>
       <Head>
@@ -22,11 +33,12 @@ function Home({ list }) {
   );
 }
 
-Home.getInitialProps = async ctx => {
-  let list = [];
-  let res = await getHomepageService();
-  list = res.data;
-  return { list };
-};
+// Home.getInitialProps = async ctx => {
+//   let list = [];
+//   let res = await getHomepageService();
+//   console.log(res);
+//   // list = res.data;
+//   return { list };
+// };
 
 export default Home;
