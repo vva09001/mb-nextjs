@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { map } from "lodash";
 import ReactHtmlParser from "react-html-parser";
-import { getPageService } from "../services/home";
-import { getPage } from "../services/page";
+import { getPageService } from "../../services/home";
+import { getPage } from "../../services/page";
+import { useRouter } from "next/router";
 
 function Home() {
   const [list, setList] = useState([]);
   const [listPage, setListPage] = useState([]);
+  const router = useRouter();
 
   const getHome = async () => {
-    const res = await getPageService("homepage");
+    const res = await getPageService(router.query.page);
     if (res && res.status === 200) {
       setList(res.data);
     }
@@ -36,7 +38,9 @@ function Home() {
       </Head>
       <div className="navbar">
         {map(listPage, data => (
-          <a href={`/page/${data.slug}`}>{data.name}</a>
+          <a href={`/page/${data.slug}`} key={data.id}>
+            {data.name}
+          </a>
         ))}
       </div>
       <div className="container mt-2">
@@ -47,13 +51,5 @@ function Home() {
     </div>
   );
 }
-
-// Home.getInitialProps = async ctx => {
-//   let list = [];
-//   let res = await getHomepageService();
-//   console.log(res);
-//   // list = res.data;
-//   return { list };
-// };
 
 export default Home;
