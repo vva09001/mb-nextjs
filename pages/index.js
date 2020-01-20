@@ -13,6 +13,19 @@ function Home() {
   const [menuBottom, setMenuBottom] = useState({});
   const [menuSide, setMenuSide] = useState({});
 
+  const nest = (items, id = null, link = "parentId") => {
+    return items
+      .filter(item => item[link] === id)
+      .map(item => ({
+        ...item,
+        title: `${item.name}`,
+        children: nest(
+          items.sort((a, b) => a.position - b.position),
+          item.id
+        ),
+        expanded: true
+      }));
+  };
   const getHome = async () => {
     const res = await getPageService("homepage");
     if (res && res.status === 200) {
@@ -34,7 +47,8 @@ function Home() {
         if (values.position === "top") {
           const res1 = await getMenuItemById(values.id);
           if (res1 && res1.status === 200) {
-            setMenuTop(res1.data);
+            let menuTopData = nest(res1.data);
+            setMenuTop(menuTopData);
           }
         } else {
           if (values.position === "bottom") {
@@ -58,22 +72,31 @@ function Home() {
   useEffect(() => {
     getHome();
     page();
-    getMenu()
+    getMenu();
   }, []);
-
+  console.log(menuTop, menuBottom, menuSide);
   return (
     <div>
       <Head>
         <title>{list.meta_title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="navbar">
-        {map(menuTop, data => (
-          <a href={`/page/${data.slug}`} key={data.id}>
-            {data.name}
-          </a>
-        ))}
-      </div>
+      <nav className="menu">
+        <ol>
+          {map(menuTop, values => (
+            <li className="menu-item">
+              <a href="#0">{values.name}</a>
+              <ol className="sub-menu">
+                {map(values.children, valuess => (
+                  <li className="menu-item">
+                    <a href="#0">{valuess.name}</a>
+                  </li>
+                ))}
+              </ol>
+            </li>
+          ))}
+        </ol>
+      </nav>
       <div className="container mt-2">
         {map(list.pageBlocks, (values, index) => {
           return <div key={index}>{ReactHtmlParser(values.contentHtml)}</div>;
