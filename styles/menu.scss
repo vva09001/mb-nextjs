@@ -1,6 +1,6 @@
 .navbar {
   overflow: hidden;
-  background-color: #333;
+  background-color: blue;
   position: fixed !important;
   top: 0;
   width: 100%;
@@ -12,7 +12,7 @@
   display: block;
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
+  padding: 5px 5px;
   text-decoration: none;
   font-size: 17px;
 }
@@ -20,4 +20,51 @@
 .navbar a:hover {
   background: #ddd;
   color: black;
+}
+
+.navbarbot {
+  overflow: hidden;
+  background-color: blue;
+
+  bottom: 0;
+  width: 100%;
+  display: block !important;
+}
+
+.navbarbot a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 5px 5px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbarbot a:hover {
+  background: #ddd;
+  color: black;
+}
+
+.navbarside {
+  height: auto;
+  width: 50;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color:blue;
+  overflow-x: hidden;
+}
+.navbarside a {
+  padding: 8px 8px 8px 8px;
+  text-decoration: none;
+  font-size: 17px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+.navbarside a:hover {
+  color: #f1f1f1;
 }
