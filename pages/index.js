@@ -75,11 +75,13 @@ function Home() {
     getMenu();
   }, []);
 
-  const nest1 = items => {
-    return map(items , item => (
-      <li className="menu-item">
-        <a href="#0">{item.name}</a>
-        <ol className="sub-menu">{nest1(item.children)}</ol>
+  const nestChild = items => {
+    return map(items, item => (
+      <li class="active">
+        <a href="#">{item.name}</a>
+        <ul>
+          {nestChild(item.children)}
+        </ul>
       </li>
     ));
   };
@@ -89,16 +91,17 @@ function Home() {
         <title>{list.meta_title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-       <nav className="menu">
-        <ol>
-        {nest1(menuTop)}
-        </ol>
-      </nav>
+      <div id="cssmenu">
+        <ul>
+         {nestChild(menuTop)}
+        </ul>
+      </div>
       <div className="container mt-2">
         {map(list.pageBlocks, (values, index) => {
           return <div key={index}>{ReactHtmlParser(values.contentHtml)}</div>;
         })}
       </div>
+
       <div className="navbarside">
         {map(menuSide, data => (
           <a href={`/page/${data.slug}`} key={data.id}>
