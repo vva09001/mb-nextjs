@@ -78,7 +78,7 @@ function Home() {
   const nestChild = items => {
     return map(items, item => (
       <li class="active">
-        <a href="#">{item.name}</a>
+        <a href={`/page/${item.slugPages}`}>{item.name}</a>
         <ul>
           {nestChild(item.children)}
         </ul>

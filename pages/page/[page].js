@@ -15,9 +15,30 @@ function Home() {
   const [menuBottom, setMenuBottom] = useState({});
   const [menuSide, setMenuSide] = useState({});
 
+  const nest = (items, id = null, link = "parentId") => {
+    return items
+      .filter(item => item[link] === id)
+      .map(item => ({
+        ...item,
+        title: `${item.name}`,
+        children: nest(
+          items.sort((a, b) => a.position - b.position),
+          item.id
+        ),
+        expanded: true
+      }));
+  };
+
+  const nestChild = items => {
+    return map(items, item => (
+      <li class="active">
+        <a href={`/page/${item.slugPages}`}>{item.name}</a>
+        <ul>{nestChild(item.children)}</ul>
+      </li>
+    ));
+  };
   const getHome = async () => {
     const res = await getPageService(router.query.page);
-    console.log(router.query.page);
     if (res && res.status === 200) {
       setList(res.data);
     }
@@ -37,7 +58,8 @@ function Home() {
         if (values.position === "top") {
           const res1 = await getMenuItemById(values.id);
           if (res1 && res1.status === 200) {
-            setMenuTop(res1.data);
+            let menuTopData = nest(res1.data);
+            setMenuTop(menuTopData);
           }
         } else {
           if (values.position === "bottom") {
@@ -63,19 +85,20 @@ function Home() {
     page();
     getMenu();
   }, []);
-  console.log(menuTop, menuBottom, menuSide);
+
   return (
     <div>
       <Head>
         <title>{list.meta_title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="navbar">
-        {map(menuTop, data => (
-          <a href={`/page/${data.slug}`} key={data.id}>
-            {data.name}
-          </a>
-        ))}
+      <div id="cssmenu">
+        <ul>{nestChild(menuTop)}</ul>
+      </div>
+      <div className="container mt-2">
+        {map(list.pageBlocks, (values, index) => {
+          return <div key={index}>{ReactHtmlParser(values.contentHtml)}</div>;
+        })}
       </div>
       <div className="container mt-2">
         {map(list.pageBlocks, (values, index) => {
