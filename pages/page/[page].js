@@ -99,12 +99,7 @@ function Home() {
         {map(list.pageBlocks, (values, index) => {
           return <div key={index}>{ReactHtmlParser(values.contentHtml)}</div>;
         })}
-      </div>
-      <div className="container mt-2">
-        {map(list.pageBlocks, (values, index) => {
-          return <div key={index}>{ReactHtmlParser(values.contentHtml)}</div>;
-        })}
-      </div>
+      </div>     
       <div className="navbarside">
         {map(menuSide, data => (
           <a href={`/page/${data.slug}`} key={data.id}>
