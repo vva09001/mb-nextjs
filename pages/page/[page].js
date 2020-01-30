@@ -37,16 +37,14 @@ function Home() {
     ));
   };
   const getHome = async () => {
+    console.log(router.query.page);
     const res = await getPageService(router.query.page);
     const news = await getNewByUri(router.query.page);
     if (res && res.status === 200) {
       setList(res.data);
     }
     if (news && news.status === 200) {
-      router.push({
-        pathname: "/news",
-        query: { slug: router.query.page }
-      });
+      router.push(`/news/${router.query.page}`);
     }
   };
 
