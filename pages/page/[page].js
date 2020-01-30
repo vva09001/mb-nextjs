@@ -37,7 +37,6 @@ function Home() {
     ));
   };
   const getHome = async () => {
-    console.log(router.query.page);
     const res = await getPageService(router.query.page);
     const news = await getNewByUri(router.query.page);
     if (res && res.status === 200) {
