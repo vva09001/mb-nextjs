@@ -5,10 +5,12 @@ import ReactHtmlParser from "react-html-parser";
 import { getPageService } from "../services/home";
 import { getPage } from "../services/page";
 import { getAllMenu, getMenuItemById } from "../services/menu";
+import { getNewByUri } from "../services/news";
+import { useRouter } from "next/router";
 
 function Home() {
   const [list, setList] = useState([]);
-  const [listPage, setListPage] = useState([]);
+  const router = useRouter();
   const [menuTop, setMenuTop] = useState({});
   const [menuBottom, setMenuBottom] = useState({});
   const [menuSide, setMenuSide] = useState({});
@@ -32,14 +34,6 @@ function Home() {
       setList(res.data);
     }
   };
-
-  const page = async () => {
-    const res = await getPage();
-    if (res && res.status === 200) {
-      setListPage(res.data);
-    }
-  };
-
   const getMenu = async () => {
     const res = await getAllMenu();
     if (res && res.status === 200) {
@@ -71,17 +65,14 @@ function Home() {
 
   useEffect(() => {
     getHome();
-    page();
     getMenu();
   }, []);
 
   const nestChild = items => {
     return map(items, item => (
-      <li class="active">
+      <li className="active" key={item.id}>
         <a href={`/page/${item.slugPages}`}>{item.name}</a>
-        <ul>
-          {nestChild(item.children)}
-        </ul>
+        <ul>{nestChild(item.children)}</ul>
       </li>
     ));
   };
@@ -92,9 +83,7 @@ function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div id="cssmenu">
-        <ul>
-         {nestChild(menuTop)}
-        </ul>
+        <ul>{nestChild(menuTop)}</ul>
       </div>
       <div className="container mt-2">
         {map(list.pageBlocks, (values, index) => {

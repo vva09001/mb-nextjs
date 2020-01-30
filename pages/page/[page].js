@@ -3,13 +3,12 @@ import Head from "next/head";
 import { map } from "lodash";
 import ReactHtmlParser from "react-html-parser";
 import { getPageService } from "../../services/home";
-import { getPage } from "../../services/page";
+import { getNewByUri } from "../../services/news";
 import { useRouter } from "next/router";
 import { getAllMenu, getMenuItemById } from "../../services/menu";
 
 function Home() {
   const [list, setList] = useState([]);
-  const [listPage, setListPage] = useState([]);
   const router = useRouter();
   const [menuTop, setMenuTop] = useState({});
   const [menuBottom, setMenuBottom] = useState({});
@@ -31,23 +30,23 @@ function Home() {
 
   const nestChild = items => {
     return map(items, item => (
-      <li class="active">
-        <a href={`/page/${item.slugPages}`}>{item.name}</a>
+      <li className="active" key={item.id}>
+        <a href={`${item.slugPages}`}>{item.name}</a>
         <ul>{nestChild(item.children)}</ul>
       </li>
     ));
   };
   const getHome = async () => {
     const res = await getPageService(router.query.page);
+    const news = await getNewByUri(router.query.page);
     if (res && res.status === 200) {
       setList(res.data);
     }
-  };
-
-  const page = async () => {
-    const res = await getPage();
-    if (res && res.status === 200) {
-      setListPage(res.data);
+    if (news && news.status === 200) {
+      router.push({
+        pathname: "/news",
+        query: { slug: router.query.page }
+      });
     }
   };
 
@@ -82,7 +81,6 @@ function Home() {
 
   useEffect(() => {
     getHome();
-    page();
     getMenu();
   }, []);
 
@@ -99,7 +97,7 @@ function Home() {
         {map(list.pageBlocks, (values, index) => {
           return <div key={index}>{ReactHtmlParser(values.contentHtml)}</div>;
         })}
-      </div>     
+      </div>
       <div className="navbarside">
         {map(menuSide, data => (
           <a href={`/page/${data.slug}`} key={data.id}>
