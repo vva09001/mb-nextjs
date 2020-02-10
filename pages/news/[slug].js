@@ -10,7 +10,9 @@ function New({ query }) {
   const router = useRouter();
   useEffect(() => {
     const res = getNewByUri(router.query.slug);
-    res.then(data => setNews(data.data));
+    console.log(res)
+     res.then(data => setNews(data.data));
+    // console.log(res);
   }, [getNewByUri]);
   return (
     <React.Fragment>
@@ -29,6 +31,7 @@ function New({ query }) {
               .fromNow()}
           </p>
         </div>
+        {console.log(news.description)}
         <div>{ReactHtmlParser(news.description)}</div>
       </div>
     </React.Fragment>
