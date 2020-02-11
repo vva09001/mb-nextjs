@@ -10,7 +10,9 @@ function New({ query }) {
   const router = useRouter();
   useEffect(() => {
     const res = getNewByUri(router.query.slug);
-    res.then(data => setNews(data.data));
+    console.log(res)
+     res.then(data => setNews(data.data));
+    // console.log(res);
   }, [getNewByUri]);
   return (
     <React.Fragment>
@@ -18,7 +20,7 @@ function New({ query }) {
         <title>{news.meta_title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="container">
+      <div className="container main_content">
         <h4>{news.title}</h4>
         <div style={{ display: "flex" }}>
           <p className="mr-4">Tác giả : {news.author_name}</p>
@@ -29,6 +31,7 @@ function New({ query }) {
               .fromNow()}
           </p>
         </div>
+        {console.log(news.description)}
         <div>{ReactHtmlParser(news.description)}</div>
       </div>
     </React.Fragment>

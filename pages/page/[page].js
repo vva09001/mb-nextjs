@@ -31,7 +31,7 @@ function Home() {
         <title>{list.meta_title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="container mt-2">
+      <div className="container main_content">
         {map(list.pageBlocks, (values, index) => {
           return <div key={index}>{ReactHtmlParser(values.contentHtml)}</div>;
         })}

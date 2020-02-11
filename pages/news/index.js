@@ -11,7 +11,7 @@ function News({ list }) {
         <title>News</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="container mt-2">
+      <div className="container main_content">
         <h1 className="text-center">Tin tức</h1>
         <div className="mb-4">
           <h4>Tin nổi bật</h4>

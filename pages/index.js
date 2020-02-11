@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import Layout from "../layout";
 import { map } from "lodash";
 import ReactHtmlParser from "react-html-parser";
 import { getPageService } from "../services/home";
