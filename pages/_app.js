@@ -5,6 +5,7 @@ import withRedux from "next-redux-wrapper";
 import withReduxSaga from "next-redux-saga";
 import store from "../store";
 import "../styles/index.scss";
+import Layout from "../layout";
 import "bootstrap/dist/css/bootstrap.css";
 
 class NextApp extends App {
@@ -19,7 +20,9 @@ class NextApp extends App {
     const { Component, pageProps, store } = this.props;
     return (
       <Provider store={store}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps}></Component>
+        </Layout>
       </Provider>
     );
   }
