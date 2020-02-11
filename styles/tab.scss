@@ -1,0 +1,37 @@
+.tab {
+  background-color: #141ed2;
+  padding: 25px;
+  padding-bottom: 0;
+  .tab_title {
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 0.94px;
+    line-height: 44px;
+    text-transform: uppercase;
+  }
+  .tab_wapper {
+    display: flex;
+    width: 100%;
+    .tab_items {
+      display: block;
+      float: left;
+      list-style: none;
+      margin: 0;
+      li {
+        display: block;
+        list-style: none;
+        float: left;
+        margin-right: 40px;
+        text-align: center;
+        a {
+          color: #ffffff;
+          font-size: 16px;
+          letter-spacing: 0.5px;
+          line-height: 20px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
