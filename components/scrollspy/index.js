@@ -9,33 +9,33 @@ function Scrollspy() {
         </div>
         <div className="tab_wapper">
           <ul className="tab_items nav nav-pills">
-            <li class="nav-item">
-              <a class="nav-link" href="#0">
+            <li className="nav-item">
+              <a className="nav-link" href="#0">
                 Giới thiệu
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#1">
+            <li className="nav-item">
+              <a className="nav-link" href="#1">
                 Lợi ích
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#2">
+            <li className="nav-item">
+              <a className="nav-link" href="#2">
                 Diều kiện vay
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#3">
+            <li className="nav-item">
+              <a className="nav-link" href="#3">
                 Hồ sơ vay vốn
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#4">
+            <li className="nav-item">
+              <a className="nav-link" href="#4">
                 Phương án vay
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#5">
+            <li className="nav-item">
+              <a className="nav-link" href="#5">
                 Ưu đãi
               </a>
             </li>

@@ -1,7 +1,7 @@
 import Actions from "./actions";
 
 const initialState = {
-  homedata: []
+  homedata: {}
 };
 
 const homeReducer = (state = initialState, action) => {

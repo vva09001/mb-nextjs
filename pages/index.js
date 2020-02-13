@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import Card from "../components/card";
 import Carousel from "../components/carousel";
@@ -7,25 +7,18 @@ import MutileIcon from "../components/mutileIcon";
 import ImgeRight from "../components/block_imege_right";
 import ImageLeft from "../components/block_imege_left";
 import Post from "../components/block_post";
+import Layout from "../components/layout";
+import { HomeActions } from "../store/actions";
 import { map } from "lodash";
 import ReactHtmlParser from "react-html-parser";
-import { getPageService } from "../services/home";
+import { connect } from "react-redux";
 
-function Home() {
-  const [list, setList] = useState([]);
-
-  const getHome = async () => {
-    const res = await getPageService("homepage");
-    if (res && res.status === 200) {
-      setList(res.data);
-    }
-  };
-
+function Home({ getHome, list }) {
   useEffect(() => {
-    getHome();
-  }, []);
+    getHome("homepage");
+  }, [getHome]);
   return (
-    <div>
+    <Layout>
       <Head>
         <title>{list.meta_title}</title>
         <link
@@ -58,7 +51,18 @@ function Home() {
           })}
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
-export default Home;
+
+const mapStateToProp = state => {
+  return {
+    list: state.HomeReducer.homedata
+  };
+};
+
+const mapDispatchToProps = {
+  getHome: HomeActions.getHomeAction
+};
+
+export default connect(mapStateToProp, mapDispatchToProps)(Home);

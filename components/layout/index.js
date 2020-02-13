@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Logo from "../public/images/logo.png";
-import PhoneIcon from "../public/images/svg/phone.svg";
-import CHIcon from "../public/images/svg/ch.svg";
-import StoreIcon from "../public/images/app_store.jpg";
-import QRCODE from "../public/images/QR_code.png";
-import LocationIcon from "../public/images/svg/location.svg";
-import MailIcon from "../public/images/svg/mail.svg";
-import PinIcon from "../public/images/svg/pin.svg";
+import Logo from "../../public/images/logo.png";
+import PhoneIcon from "../../public/images/svg/phone.svg";
+import CHIcon from "../../public/images/svg/ch.svg";
+import StoreIcon from "../../public/images/app_store.jpg";
+import QRCODE from "../../public/images/QR_code.png";
+import LocationIcon from "../../public/images/svg/location.svg";
+import MailIcon from "../../public/images/svg/mail.svg";
+import PinIcon from "../../public/images/svg/pin.svg";
 import { map } from "lodash";
-import { getAllMenu, getMenuItemById } from "../services/menu";
+import { getAllMenu, getMenuItemById } from "../../services/menu";
 
 function Layout({ children }) {
-  const [menuTop, setMenuTop] = useState({});
-  const [menuBottom, setMenuBottom] = useState({});
-  const [menuSide, setMenuSide] = useState({});
+  const [header, setHeader] = useState({});
+  const [footer, setFooter] = useState({});
+  const [slider, setSlider] = useState({});
 
   const nest = (items, id = null, link = "parentId") => {
     return items
@@ -28,6 +28,7 @@ function Layout({ children }) {
         expanded: true
       }));
   };
+
   const getMenu = async () => {
     const res = await getAllMenu();
     if (res && res.status === 200) {
@@ -36,20 +37,20 @@ function Layout({ children }) {
           const res1 = await getMenuItemById(values.id);
           if (res1 && res1.status === 200) {
             let menuTopData = nest(res1.data);
-            setMenuTop(menuTopData);
+            setHeader(menuTopData);
           }
         } else {
           if (values.position === "bottom") {
             const res2 = await getMenuItemById(values.id);
             if (res2 && res2.status === 200) {
               let data = nest(res2.data);
-              setMenuBottom(data);
+              setFooter(data);
             }
           } else {
             if (values.position === "side") {
               const res3 = await getMenuItemById(values.id);
               if (res3 && res3.status === 200) {
-                setMenuSide(res3.data);
+                setSlider(res3.data);
               }
             }
           }
@@ -101,7 +102,6 @@ function Layout({ children }) {
       </li>
     ));
   };
-
   return (
     <div>
       <div className="header">
@@ -158,7 +158,7 @@ function Layout({ children }) {
                       <img src={Logo} alt="logo" width="90" />
                     </a>
                   </li>
-                  {nestChild(menuTop)}
+                  {nestChild(header)}
                 </ul>
               </div>
             </div>
@@ -167,7 +167,7 @@ function Layout({ children }) {
       </div>
       <div className="conetnt">{children}</div>
       <div className="navbarside">
-        {map(menuSide, data => (
+        {map(slider, data => (
           <a href={`/page/${data.slug}`} key={data.id}>
             {data.name}
           </a>
@@ -306,7 +306,7 @@ function Layout({ children }) {
               </ul>
             </div>
             <div className="col-sm-8">
-              <div className="row">{renderFooter(menuBottom)}</div>
+              <div className="row">{renderFooter(footer)}</div>
             </div>
           </div>
           <hr></hr>
@@ -323,4 +323,5 @@ function Layout({ children }) {
     </div>
   );
 }
+
 export default Layout;

@@ -3,8 +3,7 @@ import { takeLatest, put, all, fork } from "redux-saga/effects";
 import { getPageService } from "../../services/home";
 
 function* homeSaga() {
-  yield takeLatest(actions.GET_HOME_REQUEST, function*(params) {
-    console.log("123");
+  yield takeLatest(actions.GET_HOME_REQUEST, function*() {
     try {
       const res = yield getPageService("homepage");
       if (res.status === 200) {

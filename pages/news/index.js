@@ -37,7 +37,9 @@ function News({ list }) {
 News.getInitialProps = async ctx => {
   let list = [];
   let res = await getNewService();
-  list = res.data;
+  if (res !== undefined && res.status === 200) {
+    list = res.data;
+  }
   return { list };
 };
 

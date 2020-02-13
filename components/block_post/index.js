@@ -34,7 +34,7 @@ function BlockPost() {
       </div>
       <div className="row">
         {map(fectData, data => (
-          <div className="col-sm-4">
+          <div className="col-sm-4" key={data.id}>
             <div className="post_content">
               <div>
                 <img src={data.image} alt="icon" />

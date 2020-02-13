@@ -10,9 +10,7 @@ function New({ query }) {
   const router = useRouter();
   useEffect(() => {
     const res = getNewByUri(router.query.slug);
-    console.log(res)
      res.then(data => setNews(data.data));
-    // console.log(res);
   }, [getNewByUri]);
   return (
     <React.Fragment>
