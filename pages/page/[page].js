@@ -16,9 +16,9 @@ function Home() {
     if (res && res.status === 200) {
       setList(res.data);
     }
-    if (news && news.status === 200) {
-      router.push(`/news/${router.query.page}`);
-    }
+    // if (news && news.status === 200) {
+    //   router.push(`/news/${router.query.page}`);
+    // }
   };
 
   useEffect(() => {
