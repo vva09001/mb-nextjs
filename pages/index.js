@@ -54,7 +54,8 @@ function Home() {
           if (values.position === "bottom") {
             const res2 = await getMenuItemById(values.id);
             if (res2 && res2.status === 200) {
-              setMenuBottom(res2.data);
+              let menuBottomData = nest(res2.data)
+              setMenuBottom(menuBottomData);
             }
           } else {
             if (values.position === "side") {
@@ -79,12 +80,11 @@ function Home() {
     return map(items, item => (
       <li class="active">
         <a href={`/page/${item.slugPages}`}>{item.name}</a>
-        <ul>
-          {nestChild(item.children)}
-        </ul>
+        <ul>{nestChild(item.children)}</ul>
       </li>
     ));
   };
+  console.log(list.pageBlocks)
   return (
     <div>
       <Head>
@@ -92,9 +92,7 @@ function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div id="cssmenu">
-        <ul>
-         {nestChild(menuTop)}
-        </ul>
+        <ul>{nestChild(menuTop)}</ul>
       </div>
       <div className="container mt-2">
         {map(list.pageBlocks, (values, index) => {
@@ -102,19 +100,8 @@ function Home() {
         })}
       </div>
 
-      <div className="navbarside">
-        {map(menuSide, data => (
-          <a href={`/page/${data.slug}`} key={data.id}>
-            {data.name}
-          </a>
-        ))}
-      </div>
-      <div className="navbarbot">
-        {map(menuBottom, data => (
-          <a href={`/page/${data.slug}`} key={data.id}>
-            {data.name}
-          </a>
-        ))}
+      <div id="cssmenubot">
+        <ul>{nestChild(menuBottom)}</ul>
       </div>
     </div>
   );

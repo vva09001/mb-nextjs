@@ -85,7 +85,7 @@ function Home() {
     page();
     getMenu();
   }, []);
-
+  console.log(list.pageBlocks)
   return (
     <div>
       <Head>
