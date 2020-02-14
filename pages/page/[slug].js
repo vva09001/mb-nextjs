@@ -11,8 +11,8 @@ function Home() {
   const router = useRouter();
 
   const getHome = async () => {
-    const res = await getPageService(router.query.page);
-    const news = await getNewByUri(router.query.page);
+    const res = await getPageService(router.query.slug);
+    // const news = await getNewByUri(router.query.page);
     if (res && res.status === 200) {
       setList(res.data);
     }
