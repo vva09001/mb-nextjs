@@ -30,7 +30,7 @@ function Home({ getHome, list }) {
       <div className="main_content">
         <Carousel />
         <Scrollspy />
-        <div className="container mt-4">
+        {/* <div className="container mt-4">
           <div data-spy="scroll" data-target="#tab_scrollpy" data-offset="0">
             <Card />
             <MutileIcon />
@@ -44,7 +44,7 @@ function Home({ getHome, list }) {
             </h4>
             <Post />
           </div>
-        </div>
+        </div> */}
         <div className="container">
           {map(list.pageBlocks, (values, index) => {
             return <div key={index}>{ReactHtmlParser(values.contentHtml)}</div>;
