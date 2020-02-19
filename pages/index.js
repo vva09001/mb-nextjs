@@ -1,22 +1,33 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
-import Card from "../components/card";
-import Carousel from "../components/carousel";
 import Scrollspy from "../components/scrollspy";
-import MutileIcon from "../components/mutileIcon";
-import ImgeRight from "../components/block_imege_right";
-import ImageLeft from "../components/block_imege_left";
-import Post from "../components/block_post";
 import Layout from "../components/layout";
+import { Carousel } from "react-responsive-carousel";
 import { HomeActions } from "../store/actions";
-import { map } from "lodash";
+import { map, isEmpty } from "lodash";
 import ReactHtmlParser from "react-html-parser";
 import { connect } from "react-redux";
 
-function Home({ getHome, list }) {
+function Home({ getHome, list, silder }) {
   useEffect(() => {
     getHome("homepage");
   }, [getHome]);
+
+  const renderText = item => {
+    switch (item.options) {
+      case "0":
+        return item.callToActionText;
+      case "1":
+        return item.caption1;
+      case "2":
+        return item.caption2;
+      case "3":
+        return item.caption3;
+
+      default:
+        return item.callToActionText;
+    }
+  };
   return (
     <Layout>
       <Head>
@@ -28,23 +39,30 @@ function Home({ getHome, list }) {
         />
       </Head>
       <div className="main_content">
-        <Carousel />
+        {!isEmpty(silder) && (
+          <Carousel
+            showThumbs={false}
+            autoPlay={silder.autoPlay === 1 ? true : false}
+            interval={
+              silder.autoPlaySpeed === undefined ? 3000 : silder.autoPlaySpeed
+            }
+            showArrows={silder.arrows === 1 ? true : false}
+            showStatus={false}
+            infiniteLoop={true}
+            emulateTouch
+          >
+            {map(silder.sliderSlides, (item, index) => (
+              <div key={index}>
+                <img src={item.image} alt="icon" />
+                <a href={item.callToActionUrl} className="legend">
+                  {renderText(item)}
+                </a>
+              </div>
+            ))}
+          </Carousel>
+        )}
+
         <Scrollspy />
-        {/* <div className="container mt-4">
-          <div data-spy="scroll" data-target="#tab_scrollpy" data-offset="0">
-            <Card />
-            <MutileIcon />
-            <ImgeRight />
-            <ImageLeft />
-            <h4 id="3" style={{ height: "500px" }}>
-              Hồ sơ vay vốn
-            </h4>
-            <h4 id="4" style={{ height: "500px" }}>
-              Phương án vay
-            </h4>
-            <Post />
-          </div>
-        </div> */}
         <div className="container">
           {map(list.pageBlocks, (values, index) => {
             return <div key={index}>{ReactHtmlParser(values.contentHtml)}</div>;
@@ -57,7 +75,8 @@ function Home({ getHome, list }) {
 
 const mapStateToProp = state => {
   return {
-    list: state.HomeReducer.homedata
+    list: state.HomeReducer.homedata,
+    silder: state.HomeReducer.silder
   };
 };
 

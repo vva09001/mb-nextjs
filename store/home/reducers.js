@@ -1,7 +1,8 @@
 import Actions from "./actions";
 
 const initialState = {
-  homedata: {}
+  homedata: {},
+  silder: {}
 };
 
 const homeReducer = (state = initialState, action) => {
@@ -9,7 +10,8 @@ const homeReducer = (state = initialState, action) => {
     case Actions.GET_HOME_RESPONSE:
       return {
         ...state,
-        homedata: action.data
+        homedata: action.data,
+        silder: action.data.sliders
       };
 
     default:
