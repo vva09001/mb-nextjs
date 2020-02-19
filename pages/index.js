@@ -13,21 +13,6 @@ function Home({ getHome, list, silder }) {
     getHome("homepage");
   }, [getHome]);
 
-  const renderText = item => {
-    switch (item.options) {
-      case "0":
-        return item.callToActionText;
-      case "1":
-        return item.caption1;
-      case "2":
-        return item.caption2;
-      case "3":
-        return item.caption3;
-
-      default:
-        return item.callToActionText;
-    }
-  };
   return (
     <Layout>
       <Head>
@@ -42,7 +27,7 @@ function Home({ getHome, list, silder }) {
         {!isEmpty(silder) && (
           <Carousel
             showThumbs={false}
-            autoPlay={silder.autoPlay === 1 ? true : false}
+            // autoPlay={silder.autoPlay === 1 ? true : false}
             interval={
               silder.autoPlaySpeed === undefined ? 3000 : silder.autoPlaySpeed
             }
@@ -54,15 +39,21 @@ function Home({ getHome, list, silder }) {
             {map(silder.sliderSlides, (item, index) => (
               <div key={index}>
                 <img src={item.image} alt="icon" />
-                <a href={item.callToActionUrl} className="legend">
-                  {renderText(item)}
-                </a>
+
+                <div className={`silder_content${item.options} silder_content`}>
+                  <p className="text_content1">{item.caption1}</p>
+                  <p className="text_content2">{item.caption2}</p>
+                  <p className="text_content3">{item.caption3}</p>
+                  <button>
+                    <a href={item.callToActionUrl}>{item.callToActionText}</a>
+                  </button>
+                </div>
               </div>
             ))}
           </Carousel>
         )}
 
-        <Scrollspy />
+        {/* <Scrollspy /> */}
         <div className="container">
           {map(list.pageBlocks, (values, index) => {
             return <div key={index}>{ReactHtmlParser(values.contentHtml)}</div>;
